@@ -1,0 +1,49 @@
+{
+  "name": "cron-service",
+  "version": "1.0.0",
+  "description": "Serviço de cron para execução de tarrefas.",
+  "main": "build/main/cron-server.js",
+  "repository": "",
+  "author": "Leonardo Araújo <leonardo.araujo@bonaparte.ag>",
+  "license": "ISC",
+  "scripts": {
+    "start": "node build/main/cron-server.js",
+    "start:dev": "nodemon -e ts --exec \"npm run start:compile\"",
+    "start:compile": "rimraf build && tsc --project tsconfig.build.json && node build/main/cron-server.js",
+    "start:docker": "docker-compose up -d",
+    "stop:docker": "docker-compose down",
+    "build": "rimraf build && tsc --project tsconfig.build.json",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
+    "lint:fix": "eslint \"{src,apps,libs,test,__tests__,__mocks__}/**/*.ts\" --fix"
+  },
+  "dependencies": {
+    "module-alias": "^2.2.2",
+    "dotenv": "^16.0.1",
+    "mongodb": "^4.7.0",
+    "node-schedule": "^2.1.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "@typescript-eslint/parser": "^4.0.0",
+    "eslint": "^7.32.0",
+    "eslint-config-standard-with-typescript": "^21.0.1",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-standard": "^5.0.0",
+    "ts-node": "^10.7.0",
+    "nodemon": "^2.0.16",
+    "@types/dotenv": "^8.2.0",
+    "@types/mongodb": "^4.0.7",
+    "@types/node": "^18.0.0",
+    "@types/node-schedule": "^2.1.0",
+    "@types/typescript": "^2.0.0",
+    "typescript": "^4.7.4"
+  },
+  "engines": {
+    "node": "16.x"
+  },
+  "_moduleAliases": {
+    "@": "build"
+  }
+}

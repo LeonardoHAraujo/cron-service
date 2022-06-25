@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  mongo:
+    container_name: mongo
+    image: mongo
+    restart: always
+    volumes:
+      - ./data:/data/db
+    ports:
+      - 27017:27017
+  cron_service:
+    container_name: cron_service
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    environment:
+      - ENVIRONMENT=stg
+      - MONGO_URI=mongodb://mongo:27017/cron
+    command: npm run start:dev
+    volumes:
+      - ./src:/app/src
+    external_links:
+      - mongo
+    depends_on:
+      - mongo
