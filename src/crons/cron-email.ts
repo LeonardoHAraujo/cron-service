@@ -7,12 +7,14 @@ export class CronEmail implements Cron {
     private readonly loadEmail: LoadEmail
   ) {}
 
-  async execute(): Promise<Cron.Result> {
-    this.scheduleJob('*/30 * * * * *', async (): Promise<void> => {
-      const email = await this.loadEmail.loadByIsSent()
+  async rule(): Promise<Cron.Result> {
+    const email = await this.loadEmail.loadByIsSent()
 
-      if (email)
-        console.log(`Send email to ${email.message.to} ...`)
-    })
+    if (email)
+      console.log(`Send email to ${email.message.to} ...`)
+  }
+
+  async execute(): Promise<Cron.Result> {
+    this.scheduleJob('*/30 * * * * *', async (): Promise<void> => this.rule())
   }
 }

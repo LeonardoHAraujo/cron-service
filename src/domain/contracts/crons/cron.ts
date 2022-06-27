@@ -1,4 +1,5 @@
 export interface Cron {
+  rule: () => Promise<Cron.Result>
   execute: () => Promise<Cron.Result>
 }
 
